@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import basketReducer from './basketReducer'
-export default combineReducers({
 
+export default combineReducers({
+    basketState : basketReducer
 })

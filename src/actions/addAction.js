@@ -5,7 +5,7 @@ export const addBasket = () => {
     console.log("add to absket");
 
     dispatch({
-      type: ADD_PRODUCT_BASKET,
+      type: ADD_PRODUCT_BASKET
     });
   };
 };
