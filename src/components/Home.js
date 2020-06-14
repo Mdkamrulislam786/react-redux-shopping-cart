@@ -17,25 +17,25 @@ const Home = (props) => {
     src={cake}
     h3="Choclate Cake"
     price="150tk"
-    onClick={props.addBasket}
+    onClick={()=>props.addBasket('choclateCake')}
     />
     <MenuItems
     src={cake1}
     h3="Birthday Cake"
     price="120tk"
-    onClick={props.addBasket}
+    onClick={()=>props.addBasket('birthdayCake')}
     />
     <MenuItems
     src={doughnut}
     h3="Doughnut"
     price="80tk"
-    onClick={props.addBasket}
+    onClick={()=>props.addBasket('doughnut')}
     />
     <MenuItems
     src={sweets}
     h3="Sweets"
     price="160tk"
-    onClick={props.addBasket}
+    onClick={()=>props.addBasket('sweets')}
     />
     </div>
   )

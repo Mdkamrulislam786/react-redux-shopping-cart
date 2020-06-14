@@ -6,6 +6,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 //REDUX
 import store from "./store";
 import { Provider } from "react-redux";
+import Cart from "./components/Cart";
 
 function App() {
   return (
@@ -13,7 +14,10 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Navbar />
-          <Home />
+          <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/Cart" exact component={Cart} />
+          </Switch>
         </BrowserRouter>
       </div>
     </Provider>

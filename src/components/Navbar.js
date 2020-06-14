@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getNumbers } from "../actions/getAction";
+import {Link} from 'react-router-dom'
 
 const Navbar = (props) => {
   console.log(props);
@@ -16,10 +17,10 @@ const Navbar = (props) => {
         <h2>SHOP</h2>
         <ul>
           <li>
-            <a href="cart">
-              <i className="fas fa-shopping-cart fa-3x"></i>
+            <Link to="cart">
+              <i className="fas fa-shopping-cart fa-2x"></i>
               <span>{props.basketProps.basketNumbers}</span>
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
@@ -28,7 +29,7 @@ const Navbar = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  basketProps: state.basketState,
+  basketProps: state.basketState
 });
 
 export default connect(mapStateToProps, { getNumbers })(Navbar);
