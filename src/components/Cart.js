@@ -1,13 +1,13 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
-import { productQuantity } from "../actions/productQuantity";
+import { productQuantity, clearProduct } from "../actions/productQuantity";
 
 import choclateCake from "../images/cake-1.jpeg";
 import birthdayCake from "../images/cake-2.jpeg";
 import doughnut from "../images/doughnut-2.jpeg";
 import sweets from "../images/z-sweets-3.jpeg";
 
-const Cart = ({ basketProps, productQuantity }) => {
+const Cart = ({ basketProps, productQuantity, clearProduct }) => {
   console.log(basketProps);
 
   let productsInCart = [];
@@ -40,7 +40,7 @@ const Cart = ({ basketProps, productQuantity }) => {
     return (
       <Fragment key={index}>
         <div className="product">
-          <i className="fas fa-times-circle"></i>
+          <i onClick={()=> clearProduct(product.tagName)} className="fas fa-times-circle"></i>
           <img src={productsImages(product)} />
           <span className="sm-hide">{product.name}</span>
         </div>
@@ -82,4 +82,4 @@ const mapStateToProps = (state) => ({
   basketProps: state.basketState,
 });
 
-export default connect(mapStateToProps, { productQuantity })(Cart);
+export default connect(mapStateToProps, { productQuantity,clearProduct })(Cart);

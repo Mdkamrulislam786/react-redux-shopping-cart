@@ -3,6 +3,7 @@ import {
   GET_NUMBERS_BASKET,
   INCREASE_QUANTITY,
   DECREASE_QUANTITY,
+  CLEAR_PRODUCT,
 } from "../actions/types";
 
 const initialState = {
@@ -11,28 +12,28 @@ const initialState = {
   products: {
     choclateCake: {
       name: "Choclate Cake",
-      tagName: 'choclateCake',
+      tagName: "choclateCake",
       price: 220,
       numbers: 0,
       inCart: false,
     },
     birthdayCake: {
       name: "Birthday Cake",
-      tagName: 'birthdayCake',
+      tagName: "birthdayCake",
       price: 350,
       numbers: 0,
       inCart: false,
     },
     doughnut: {
       name: "Doughnut",
-      tagName: 'doughnut',
+      tagName: "doughnut",
       price: 120,
       numbers: 0,
       inCart: false,
     },
     sweets: {
       name: "Sweets",
-      tagName: 'sweets',
+      tagName: "sweets",
       price: 100,
       numbers: 0,
       inCart: false,
@@ -44,7 +45,7 @@ export default (state = initialState, action) => {
   let productSelected = "";
   switch (action.type) {
     case ADD_PRODUCT_BASKET:
-      productSelected = { ...state.products[action.payload]};
+      productSelected = { ...state.products[action.payload] };
       productSelected.numbers += 1;
       productSelected.inCart = true;
       console.log(productSelected);
@@ -67,6 +68,7 @@ export default (state = initialState, action) => {
       productSelected.numbers += 1;
       return {
         ...state,
+        basketNumbers: state.basketNumbers + 1,
         cartCost: state.cartCost + state.products[action.payload].price,
         products: {
           ...state.products,
@@ -75,10 +77,36 @@ export default (state = initialState, action) => {
       };
     case DECREASE_QUANTITY:
       productSelected = { ...state.products[action.payload] };
-      productSelected.numbers -= 1;
+      let newCartCost = 0;
+      let newBasketNumbers = 0;
+      if (productSelected.numbers === 0) {
+        productSelected.numbers = 0;
+        newCartCost = state.cartCost;
+        newBasketNumbers = state.basketNumbers;
+      } else {
+        productSelected.numbers -= 1;
+        newCartCost = state.cartCost - state.products[action.payload].price;
+        newBasketNumbers = state.basketNumbers - 1;
+      }
       return {
         ...state,
+        basketNumbers: newBasketNumbers,
+        cartCost: newCartCost,
         cartCost: state.cartCost - state.products[action.payload].price,
+        products: {
+          ...state.products,
+          [action.payload]: productSelected,
+        },
+      };
+    case CLEAR_PRODUCT:
+      productSelected = { ...state.products[action.payload] };
+      let bakupNumbers = productSelected.numbers;
+      productSelected.numbers = 0;
+      productSelected.inCart = false;
+      return {
+        ...state,
+        basketNumbers: state.basketNumbers - bakupNumbers,
+        cartCost: state.cartCost - bakupNumbers * productSelected.price,
         products: {
           ...state.products,
           [action.payload]: productSelected,
